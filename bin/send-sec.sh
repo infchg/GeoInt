@@ -1,8 +1,10 @@
 #!/bin/bash
 
+# either you define here config variables 
 export DIR=/var/www/html/checks
 export INFLUX='http://infdb:8086/write?db=dba&precision=m'
 
+# or use this config file that overwrite above
 source /etc/measure/sping-conf/common.conf.sh
 
 echo sending 
