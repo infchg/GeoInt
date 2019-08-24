@@ -4,7 +4,7 @@ Linux Bash Python Measurement scripts
 ## Node Checks Tools
 
 the tools to check nodes and The Measurement Cloud system
-can run also from this notebook in bash shell  [NodeChecks.ipynb](NodeChecks.ipynb)
+can run also from this notebook in bash shell  [NodeCheck.ipynb](NodeCheck.ipynb)
 
 
 ### recommended location and install
