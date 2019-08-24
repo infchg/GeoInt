@@ -1,7 +1,13 @@
 # measure-pub
 Linux Bash Python Measurement scripts
 
-## recommended location and install
+## Node Checks Tools
+
+the tools to check nodes and The Measurement Cloud system
+can run also from this notebook in bash shell  [NodeChecks.ipynb](NodeChecks.ipynb)
+
+
+### recommended location and install
 
 ```
 sudo mkdir -p /etc/measure
@@ -11,8 +17,7 @@ git clone https://github.com/infchg/measure-pub
 ```
 
 
-## as usual:
-
+### default configs as usual:
 
 your configuration file:
 
