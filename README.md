@@ -6,6 +6,8 @@ Linux Bash Python Measurement scripts
 the tools to check nodes and The Measurement Cloud system
 can run also from this notebook in bash shell  [NodeCheck.ipynb](NodeCheck.ipynb)
 
+add the Latex formulas into the jpynb
+
 
 ### recommended location and install
 
