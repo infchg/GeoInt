@@ -1,4 +1,12 @@
-# measure-pub
+# GeoInt
+
+Tools on mapping, charting, imagery analysis, and imagery intelligence.
+
+- Demo Maps to Country HR intel:   https://infchg.github.io/geo-map3.svg 
+
+![mapa3](https://infchg.github.io/geo-map3.svg)
+
+## Build from previous 2018 measure-pub
 Linux Bash Python Measurement scripts
 
 ## Node Checks Tools
