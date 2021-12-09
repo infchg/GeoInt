@@ -21,8 +21,8 @@ Jupyter+py: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/
 Jupyter+: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/infchg/GeoInt/master?filepath=NodeCheck.ipynb)
 
 
-Jupyter+R: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/infchg/GeoInt/master?filepath=map-jupyter-R.ipynb)
-22
+Jupyter+R: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/infchg/GeoInt/master?filepath=map_jupyter_R.ipynb)
+ 
 
 RStudio: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/infchg/GeoInt/master?urlpath=rstudio)
 
