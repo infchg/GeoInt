@@ -18,8 +18,11 @@ added Latex formulas into the jpynb
 see 
 
 Jupyter+py: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/infchg/GeoInt/master?filepath=geoMap.ipynb)
-Jupyter+R: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/infchg/GeoInt/master?filepath=NodeCheck.ipynb)
-21
+Jupyter+: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/infchg/GeoInt/master?filepath=NodeCheck.ipynb)
+
+
+Jupyter+R: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/infchg/GeoInt/master?filepath=map-jupyter-R.ipynb)
+22
 
 RStudio: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/infchg/GeoInt/master?urlpath=rstudio)
 
