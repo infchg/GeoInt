@@ -17,7 +17,9 @@ can run also from this notebook in bash shell  [NodeCheck.ipynb](NodeCheck.ipynb
 added Latex formulas into the jpynb
 see 
 
+Jupyter+py: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/infchg/GeoInt/master?filepath=geoMap.ipynb)
 Jupyter+R: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/infchg/GeoInt/master?filepath=NodeCheck.ipynb)
+21
 
 RStudio: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/infchg/GeoInt/master?urlpath=rstudio)
 
