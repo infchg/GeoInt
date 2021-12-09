@@ -14,7 +14,14 @@ Linux Bash Python Measurement scripts
 the tools to check nodes and The Measurement Cloud system
 can run also from this notebook in bash shell  [NodeCheck.ipynb](NodeCheck.ipynb)
 
-add the Latex formulas into the jpynb
+added Latex formulas into the jpynb
+see 
+
+Jupyter+R: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/infchg/GeoInt/master?filepath=NodeCheck.ipynb)
+
+RStudio: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/infchg/GeoInt/master?urlpath=rstudio)
+
+RShiny: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/infchg/GeoInt/master?urlpath=shiny/bus-dashboard/)
 
 
 ### recommended location and install
