@@ -23,7 +23,7 @@ Jupyter+: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2
 
 Jupyter+R: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/infchg/GeoInt/master?filepath=map_jupyter_R.ipynb)
  
-
+Jupyter+R: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/marsja/jupyter/master?urlpath=rstudio)
 RStudio: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/infchg/GeoInt/master?urlpath=rstudio)
 
 RShiny: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/infchg/GeoInt/master?urlpath=shiny/bus-dashboard/)
