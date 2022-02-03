@@ -1,0 +1,376 @@
+<!DOCTYPE html><html lang='en-US' /><meta charset="utf8" />
+  <meta http-equiv="Content-type" 	content="text/html; charset=utf-8" />
+  <meta name="twitter:title" 		content="mcj"  />
+  <meta name="author" 				content="MCJ CRL licensed " />
+
+  <head>
+    <!--author: MCJ CRL  2internet vs 2local  , fillcolor:"#922" no es 
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>   -->
+    <!--   2local  overhttpSSS  link rel="stylesheet" href="style.css"-->
+    	<link rel="stylesheet" href="/opt/lib/leaflet-1.3.1/leaflet.css" />
+    		<script src="/opt/lib/leaflet-1.3.1/leaflet.js"></script>  
+
+    	
+    	
+ <style>
+  @import '/opt/node_modules/bootstrap-icons/font/bootstrap-icons.css';
+  @import { url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css"); };
+:root {		
+	    --ipREL: violet;
+	    --ipPOL: blue;
+	    --ipGRPm: cyan;  
+	    --ipGRPa: green;  
+	    --ipGRPh: yellow;
+	   // --ipNAT: orange;
+	    --ipNAT: #f70;
+	    --ipRAC: #f00;
+	    --ipGRPv: #555;  // PS  Pro.Subs.
+ }	
+    #map {
+  height: 550px;
+  border: 1px solid pink;
+ }
+    </style>
+    
+        <style>  
+.info {
+padding: 6px 8px;
+font: 14px/16px Arial, Helvetica, sans-serif;
+background: white;
+background: rgba(255,255,255,0.8);
+box-shadow: 0 0 15px rgba(0,0,0,0.2);
+border-radius: 5px;
+}
+.legend {
+background-color: “black”;
+line-height: 25px;
+color: #555;
+width: auto;
+}
+.legend i {
+width: 18px;
+height: 18px;
+float: left;
+margin-right: 8px;
+opacity: 0.7;
+}
+</style>
+
+    
+  </head>
+
+  <body>
+    
+    <h2> Protección Internacional -  Motivos de persecución  </h2>
+	
+	Datos de persecución, por paises, por motivos.   [ other ref maps <a href=https://infchg.github.io/covid22world.html> https://infchg.github.io/covid22world.html </a>]
+	
+	<p> 
+	 </p>
+
+	 <p>
+	 
+	 </p >
+	 
+	 <div id="map"></div>
+
+
+       <script src="../data/1950.geojson.js"></script>  <!-- loading es7 by symmetry pattern  ==> geo redundant -->
+       <script src="../data/ISO3countries.geojson"></script>  
+       
+      <script src="../data/urls-iso3.js"></script>  
+      <script src="../data/protect2+urls-iso.js"></script>   <!-- load es7 by symmetry pattern  ==> data redundant -->
+
+    <script >
+	var myStyle = {
+	"color": "#08f",
+	"weight": 1,
+	"stroke-width": 1,
+	"opacity": 0.7
+	};
+
+//abc def ghijk lmno pq rst uvw xyz
+	 function getIColor(d) {
+                return d > "Y" ? 'violet' :
+                d >= "U"? 'blue' :
+                d > "R"? 'cyan' :
+                d > "L"? 'green' :
+                d > "F" ? 'yellow' :
+                d > "C" ? 'orange' :
+                d > "A" ? 'red' :
+                'gray';   
+                }	
+      
+      function enlaza(  fields1Link2Title ) { 
+		  let link1 = fields1Link2Title.substring(0,33)
+		  let title2 = fields1Link2Title.substring(33)
+		  return  title2 + ' <a href="https://drive.google.com/file/d/' +link1+ '?j"  target="_blank">  &#x25B8; </a> ' 
+		  
+		  // FOLD:  https://drive.google.com/drive/folders/
+		  // FILE : https://drive.google.com/file/d/1aWR1znQytn0kCMrFU-NngwFzL4ctO2F2
+	  }
+                
+	 function pais(k) {
+		  i =  mp2[k] ;
+		  geo = mycountries.features[ i ]  ;
+
+		return "<b>"  + geo.properties.name + "</b>  "  + k + " "
+		+  ( opss[k] && opss[k].href ? '<a href="'+ opss[k].href +'" target="_blank">  &#x25B8; </a> ' : "" ) + "</br>"
+		+  ( opss[k] && opss[k].img  ? "<img width=200 src='"+ opss[k].img +"'/>" : "" ) + "</br>"
+		+  ( opss[k] && opss[k].etn  ? '<i style="background:var(--ipRAC);">&#x25B8;.</i>' +   enlaza( opss[k].etn )  + "</br>": '' )
+		+  ( opss[k] && opss[k].nat  ? '<i style="background:var(--ipNAT);">&#x25B8;.</i>' +  enlaza( opss[k].nat ) + "</br>" : '' ) 
+		+  ( opss[k] && opss[k].gri  ? '<i style="background:var(--ipGRPh);">&#x25B8;.</i>' +  enlaza( opss[k].gri )+ "</br>"   : '' ) 
+		+  ( opss[k] && opss[k].gra  ? '<i style="background:var(--ipGRPa);">&#x25B8;.</i>' +  enlaza( opss[k].gra ) + "</br>" : '' ) 
+		+  ( opss[k] && opss[k].grs  ? '<i style="background:var(--ipGRPm);">&#x25B8;.</i>' +  enlaza( opss[k].grs )+ "</br>" : '' ) 
+		+  ( opss[k] && opss[k].pol  ? '<i style="background:var(--ipPOL);">&#x25B8;.</i>' +  enlaza( opss[k].pol )+ "</br>" : '' ) 
+		+  ( opss[k] && opss[k].rel  ? '<i style="background:var(--ipREL);">&#x25B8;.</i>' +  enlaza( opss[k].rel )+ "</br>" : '' ) 
+		
+		+  ( opss[k] && opss[k].grv ? '<hr> +  <i style="background:var(--ipGRPv);">&#x25B8;.</i>' +  enlaza( opss[k].grv )+ " " : '' ) 
+		
+		+  ( opss[k] && opss[k].busq  ? '<hr> + <i style="background:gray">+</i>' + " ... " : '' ) + " "
+
+		}	                
+    
+
+   
+  //mapa              
+   var map = L.map("map", { minZoom: 1.7, maxZoom: 7, maxBounds: L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180) ) , })
+               .setView([0, 2], 3);
+
+    
+ var lunar = new L.tileLayer('https://cartocdn-gusc.global.ssl.fastly.net/opmbuilder/api/v1/map/named/opm-moon-basemap-v0-1/all/{z}/{x}/{y}.png', {
+			zoom: 3,
+     attribution: 'by <a href="https://OpenPlanetary.Org"  target="_blank">The OpenPlanetary.Org</a> ;',
+			tms: false,
+		})
+		
+		// lunar.addTo(map).setZIndex(0);
+    
+  var NASAGIBS_ViirsEarthAtNight2012 = L.tileLayer('https://map1.vis.earthdata.nasa.gov/wmts-webmerc/VIIRS_CityLights_2012/default/{time}/{tilematrixset}{maxZoom}/{z}/{y}/{x}.{format}', {
+	attribution: 'by GIBS, operated by the NASA/GSFC/Earth Science Data and Information System (<a href="https://earthdata.nasa.gov"  target="_blank">ESDIS</a>);',
+	bounds: [[-85.0511287776, -179.999999975], [85.0511287776, 179.999999975]],
+	minZoom: 1,
+	maxZoom: 8,
+	format: 'jpg',
+	time: '',
+	tilematrixset: 'GoogleMapsCompatible_Level'
+}) 
+
+//.addTo(map);
+  
+
+
+ // L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',  // wrong map non-iso osm
+  var USGS_USImageryTopo = L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}', {
+	maxZoom: 20,
+	attribution: 'Tiles courtesy of the <a href="https://usgs.gov/"  target="_blank">U.S. Geological Survey</a>'
+}).addTo(map); 
+    
+   var unbase = L.tileLayer(
+   "https://geoservices.un.org/arcgis/rest/services/ClearMap_WebTopo/MapServer/tile/{z}/{y}/{x}", {
+   maxClusterRadius: 12,
+   zoom: 2,
+   attribution:"\u003Ca href=\u0022https:\/\/geoportal.un.org\/arcgis\/home\/item.html?id=541557fd0d4d42efb24449be614e6887\u0022 target=\u0022blank\u0022 style=\u0022text-decoration: none;\u0022\u003EProduced by: UN Geospatial\u003C\/a\u003E" 
+}) ;
+
+unbase.addTo(map); 
+    
+
+  var overlays = {
+           "USGS Topo Imag": USGS_USImageryTopo, // dice WS-disp  ---> best2
+           "United Nations": unbase,           
+           "Lunatic World": lunar,
+           "NASA at Night": NASAGIBS_ViirsEarthAtNight2012 , //  ---> cool
+    };
+   L.control.layers(null,overlays).addTo(map); 
+  
+    
+// todos d golpe :  L.geoJson(mycountries).bindPopup( 'hola ').addTo(map)
+  
+  // .on('mouseover', function(event){   this.openPopup(); });  
+  
+   console.log( Object.keys( mycountries.features  ) ,    Object.keys( ls.lis ) )
+
+ var opss = (ls.lis)
+   console.log( opss )
+ 
+  Object.keys( opss ).forEach( k => { 
+	    	     opss[k] != null  ?   console.log( opss[k].href  ) : 0 ;  
+			  }    
+				 )
+ 
+  let mp  = new Map();  //no usa
+  let mp2 ={};
+  // cc by cc
+  for ( i in Object.keys( mycountries.features ) ) { 
+	      if (mycountries.features[i].properties.name )
+	           {	 
+			//  mp.set( mycountries.features[i].id , i ); 
+			   mp2[ mycountries.features[i].id ] = i ;
+			  console.log(mycountries.features[i].properties.name ) ;
+			//  console.log(mycountries.features[i].properties.WB_CNTRY in lista ) ;
+			  geo = mycountries.features[i] ;
+		
+		/* adding all or later */
+			   // L.geoJson(geo)		  
+
+			     //     L.geoJson(geo, {style: myStyle  })
+			       
+			  L.geoJson(geo, {style: {weight: 1, color: "#bfb", fillOpacity: 0, jc: getIColor(mycountries.features[i].id) } })
+			//	.bindPopup( mycountries.features[i].properties.name  + "</br>" +  geo.id + "</br>" +  geo.properties.name )
+				  .addTo(map)
+					 .on('mouseover', function(event){   this.openPopup(); });  
+		
+		//"geometry":{"type":"Polygon","coordinates"
+			   }
+	    };
+  
+  
+ //ops
+  let ops = {ESH: "Minurso", ISR:"UNTSO", CAF: "Minusca", PAK:"Unmogip", LBN:"UNmil", ZAR:"Monusco" , MLI:"Minusma", SDN:"Unmiss & Unisfa", SYR:"UNDOF", YUG:"UNMIK" };
+  
+  ops= opss;
+  
+  // UN Peace Miassions as of 2022 , lista = [ "ESH", "ISR", "TIB", "PAK", "COL", "CAR", "ZAR" , "SUD", "SYR"  ]; 
+  let  lista =  Object.keys( ops ) // [ "ESH", "ISR", "CAF", "PAK", "COL", "SOM", "ZAR" , "LYB", "SDN", "SYR"  ];  // UN Peace Miassions as of 2022 
+  
+       console.log("INCLUSION", lista);
+ //1950 console.log( mp , mp['ESP'], mp2 , mp2['ESP'],  mycountries.features[ mp2['ESP']].properties.NAME  ) ;  // mp2 has the hash
+  console.log( mp , mp['ESP'], mp2 , mp2['ESP'] )
+   console.log(  mycountries.features[ mp2['ESP']].properties.name  ) ;  // mp2 has the hash
+  console.log(   lista ) ;
+
+
+ 	 lista.forEach(k => {  i =  mp2[k]
+		                   console.log(k , i ) 
+		                   geo = mycountries.features[ i ] 
+		       estilo =  opss[k] && opss[k].busq  ?  {style: {color:"#222",  fillOpacity: .2 }  } :  {style: {color:"gray"} }   ;			       // later in key ids
+		       L.geoJson(geo, estilo)
+				// 	.bindPopup( mycountries.features[i].properties.name + " "  + k + ( opss[k] && opss[k].img  ?  "<img src='"+ opss[k].img +"'/>" : 0 ) + "</br>" + opss[k] )
+				.bindPopup( pais(k) )
+			// 1950 .bindPopup( mycountries.features[i].properties.NAME  + " " +  mycountries.features[i].properties.FIPS_CODE + " " +  mycountries.features[i].properties.WB_CNTRY + "</br>" + ops[k] )
+				  .addTo(map)
+					 .on('mouseover', function(event){   this.openPopup(); });  
+		                 } 
+ 	                 );
+
+
+//legend  console.log( getIColor("INCLUSION" ), "col" );
+// legend 
+    var legend = L.control({position: 'bottomright'});
+// 
+legend.onAdd = function(map){ 
+
+        var div = L.DomUtil.create('div', 'info legend'),
+        grades = ["Afg","Can","Fin","Lao","Rou","Ukr","Yem"];
+        gradesIP = ["Etnia Raza", "Naciónalidad", "Grupo S. Hum", "Grupo Social", "Grupo S. Min S", "Politica", "Religión"];
+
+ div.innerHTML += ' <i style="background:gray">+</i> Base de datos <br/> <i style="background:#222">+</i> Búsquedas<br/> 	<b>Persecución por:</b><br/>  ' ;
+ // div.innerHTML += ' <i style="background:gray">+</i> UN Ops<br/> <i style="background:#222">+</i> Busquedas<br/> 	<b>Color by ISO code:</b><br/>  ' ;
+
+ 
+        for (var i = 0; i < grades.length; i++) {
+                div.innerHTML += '<i style="background:' + getIColor(grades[i] + 1) + '">+</i>' + gradesIP[i] + '<br>'  ;
+               //    div.innerHTML += '<i style="background:' + getIColor(grades[i] + 1) + '">+</i>' + grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+
+        }
+//
+   return div;
+  };
+//return '<div class="info legend">A <br/> B</div>'} ;
+ // 
+  legend.addTo(map);
+  </script>
+    
+    
+    
+  31  January 2022.
+	<p>Fuentes / Sources</p>
+
+
+		<li> - UNHCR ACNUR CruzRoja RedCross ...
+
+          
+ 	</li> <li>  - .ES Artículo 7 de la ley 12/2009, motivos de persecución por:
+<i style="background:var(--ipRAC);">. </i> 	a) raza, 
+<i style="background:var(--ipREL);">. </i>	b) religión, 
+<i style="background:var(--ipNAT);">. </i>	c) nacionalidad,
+<i style="background:var(--ipPOL);">. </i>    d) políticas,
+<i style="background:var(--ipGRPa);">. </i>     e) grupo social, innato o antecedentes, percibido
+  	</li> <li>    - Independiente de investigaciones o asilo, tambien se señalan <i style="background:var(--ipGRPv);">. </i> casos de violencia como pandillas y otros grupos armados 
+	  
+</li> <li> 	  - .US ley de inmigración de los Estados Unidos, causas de asilo político:
+	<i style="background:var(--ipPOL);">. </i> Opiniones políticas,
+	<i style="background:var(--ipREL);">. </i>Creencias religiosas,
+	<i style="background:var(--ipGRPa);">. </i>Pertenecen a un grupo social particular,
+	<i style="background:var(--ipRAC);">. </i>Raza o <i style="background:var(--ipNAT);">. </i>nacionalidad,
+	<i style="background:var(--ipGRPm);">. </i> Perteneciente a minorías sexuales,
+	<i style="background:var(--ipGRPh);">. </i> Causas humanitarias  
+</li> <li> 	  -  United Nations Peacekeeping site https://peacekeeping.un.org/en/where-we-operate <br/>
+</li> <li>       - historical basemaps https://github.com/aourednik/historical-basemaps <br/>
+</li> <li>       - github.com/infchg/GeoInt   /blob/master/ISO3world.geo.json    <br/>
+    </li> 	<p>  </p>
+    
+   COVID-19 situation update for the EU/EEA, as of 28 January ... COVID-19 - ecdc.europa.eu
+     https://opendata.ecdc.europa.eu/covid19/nationalcasedeath_eueea_daily_ei/csv/data.csv
+     https://opendata.ecdc.europa.eu/covid19/nationalcasedeath_eueea_daily_ei/json
+     (*) Kosovo - This designation is without prejudice to positions on status, and is in line with UNSCR 1244/1999 and the ICJ Opinion on the Kosovo declaration of independence.
+SAR - Special Administrative Region
+(**) in accordance with the applied case definition in the countries
+(***) This designation shall not be construed as recognition of a State of Palestine and is without prejudice to the individual positions of the Member States on this issue
+
+
+ COVID-19 Data Explorer:
+Global Humanitarian Operations  https://data.humdata.org/visualization/covid19-humanitarian-operations/
+ https://tools.humdata.org/snap?output=pdf&pdfFormat=A4&pdfLandscape=true&pdfMarginTop=35
+ 
+    
+    WHO Coronavirus (COVID-19) Dashboard colors by country (no bubbles)(all blue)
+    Latest reported counts of cases and deaths
+Download link: https://covid19.who.int/WHO-COVID-19-global-table-data.csv
+Field name	Type	Description
+Name	String	Country, territory, area
+WHO_region	String	WHO Region
+Cases - cumulative total	Integer	Cumulative confirmed cases reported to WHO to date.
+Cases - cumulative total per 100000 population	Decimal	Cumulative confirmed cases reported to WHO to date per 100,000 population.
+Cases - newly reported in last 7 days	Integer	New confirmed cases reported in the last 7 days. Calculated by subtracting previous cumulative case count (8 days prior) from current cumulative cases count.
+Cases - newly reported in last 7 days per 100000 population	Decimal	New confirmed cases reported in the last 7 days per 100,000 population
+
+ https://covid19.who.int/WHO-COVID-19-global-table-data.csv
+Security Council Extends Mandate of United Nations Mission in Western Sahara, Adopting Resolution 2602 (2021) by 13 Votes in Favour, 2 Abstentions
+Format  UN SC    29 Oct 2021  https://reliefweb.int/report/western-sahara/security-council-extends-mandate-united-nations-mission-western-sahara-0
+https://reliefweb.int/map/western-sahara/western-sahara-minurso-deployment-august-2021
+
+https://www.refworld.org.es/country,COI,AMNESTY,COUNTRYREP,ESH,,,,0.html
+Territorio de Sahara Occidental
+Derechos de la mujer 1
+Derechos humanos 1
+Discriminación de género 1
+Pena de muerte 2
+Violencia sexual y de género 1
+<img src="https://www.unhcr.org/images/flags/ESP.jpg" class="countryflag" alt="España - flag">
+https://www.refworld.org.es/cgi-bin/texis/vtx/rwmain?page=country&skip=0&coi=ESP
+https://www.unhcr.org/images/flags/ESH.jpg
+
+https://www.amnistia.org/ve/noticias/2021/03/18305/china-parents-of-missing-uyghur-children-describe-horror-of-family-separation
+MARZO, 2021The exiled families of Uyghur children held in state “orphanages” in the Chinese region of Xinjiang described the torment of being separated in a new piece of Amnesty International research released today.
+CHINA: PARENTS OF MISSING UYGHUR CHILDREN
+
+MISSING AND DETAINED PEOPLE  MISSING AND DETAINED PEOPLE https://xinjiang.amnesty.org/#cases
+
+
+
+
+ Standards ISO:
+<li> - http://travel.fyicenter.com/Country/Country_Name_ISO3_Code_List.php?S=1D   http://travel.fyicenter.com/Country/_EH_Western_Sahara.html
+</li> <li>- lang http://www.loc.gov/standards/iso639-2/php/code_list.php  https://github.com/SuzanaK/language_datasets/blob/master/data/iso3_language_codes_with_geo_coordinates.csv
+</li> <li> - cc https://www.iban.com/country-codes   https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3 https://en.wikipedia.org/wiki/Western_Sahara
+</li> <li>Disclaimer: Some ISO codes like AZE HKG UKR TIB GEO TWN were not recognized as independent nations by 1990 URSS, some not recognized by PRChina today. 
+
+	<p>To reflect on the lunacy behind conflicts, explore the areas on an imaginary moon translation layer.
+	 <code class="bi-diagram-2"></code> 
+	<code class="bi-zoom-in"></code>   
+  </body>
+
+</html>
