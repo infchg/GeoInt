@@ -1,10 +1,17 @@
-# GeoInt
+# GeoInt for Safe & Security of Personnel & All 
 
-Tools on mapping, charting, imagery analysis, and imagery intelligence.
+Tools on incidents & movements, mapping, charting, imagery analysis, and intelligence for Safe & Security  
 
-- Demo Maps to Country HR intel:   https://infchg.github.io/geo-map3.svg 
+- [PNR-yaml] Intell by  ICAO, WTO, IATA standards as used with US-EU PNR Agreements & US CFR § 122.49d  
+- Demo Maps to Country HR intel:   https://infchg.github.io/geo-map3.svg
+- ACLED & RedCross Miggration Maps and Info
 
 ![mapa3](https://infchg.github.io/geo-map3.svg)
+
+
+## Added PNR-yaml from 2020 proposals
+
+US-EU PNR Agreements 2011, and EU & US CFR § 122.49d regulations
 
 ## Build from previous 2018 measure-pub
 Linux Bash Python Measurement scripts
