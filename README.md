@@ -1,4 +1,16 @@
-# GeoInt for Safe & Security of Personnel & All 
+# GeoInt & EO for Safe & Security 
+
+# Earth Observation
+
+![nighttime](https://eoimages.gsfc.nasa.gov/images/imagerecords/148000/148282/iceland_oli_2021120_night.jpg)
+![daytime](https://eoimages.gsfc.nasa.gov/images/imagerecords/148000/148282/iceland_oli_2021120.jpg)
+
+refs
+
+- evidence of recent changes in the deformation data (cGNSS) around Askja. https://en.vedur.is/  
+- NASA Earth Observatory images by Joshua Stevens, using Landsat data from the U.S. Geological Survey. Story by Kathryn Hansen. https://earthobservatory.nasa.gov/images/148282/a-curious-case-of-clouds-in-iceland
+
+# Passengers Personnel
 
 Tools on incidents & movements, mapping, charting, imagery analysis, and intelligence for Safe & Security  
 
